@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Web App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="login-container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="login-username">Username:</label>
+            <input type="text" id="login-username" name="username" required>
+            <br>
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" name="password" required>
+            <br>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="#" id="show-register">Register here</a>.</p>
+    </div>
+
+    <div class="container" id="register-container" style="display: none;">
+        <h2>Register</h2>
+        <form id="register-form">
+            <label for="register-username">Username:</label>
+            <input type="text" id="register-username" name="username" required>
+            <br>
+            <label for="register-password">Password:</label>
+            <input type="password" id="register-password" name="password" required>
+            <br>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="#" id="show-login">Login here</a>.</p>
+    </div>
+
+    <div class="container" id="tasks-container" style="display: none;">
+        <h2>Tasks</h2>
+        <form id="task-form">
+            <label for="task">New Task:</label>
+            <input type="text" id="task" name="task" required>
+            <button type="submit">Add Task</button>
+        </form>
+        <ul id="task-list">
+            <li>Sample Task 1</li>
+            <li>Sample Task 2</li>
+            <li>Sample Task 3</li>
+        </ul>
+        <a href="#" id="logout">Logout</a>
+    </div>
+
+    <script>
+        document.getElementById('show-register').addEventListener('click', function() {
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('register-container').style.display = 'block';
+        });
+
+        document.getElementById('show-login').addEventListener('click', function() {
+            document.getElementById('register-container').style.display = 'none';
+            document.getElementById('login-container').style.display = 'block';
+        });
+
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('tasks-container').style.display = 'block';
+        });
+
+        document.getElementById('register-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('register-container').style.display = 'none';
+            document.getElementById('login-container').style.display = 'block';
+            alert('Registration successful! Please login.');
+        });
+
+        document.getElementById('task-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const task = document.getElementById('task').value;
+            if (task) {
+                const li = document.createElement('li');
+                li.textContent = task;
+                document.getElementById('task-list').appendChild(li);
+                document.getElementById('task').value = '';
+            }
+        });
+
+        document.getElementById('logout').addEventListener('click', function() {
+            document.getElementById('tasks-container').style.display = 'none';
+            document.getElementById('login-container').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
